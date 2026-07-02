@@ -67,8 +67,9 @@ or open the `notebooks/` folder in VS Code / JupyterLab and run the notebooks wi
 - All three notebooks write small files into the working directory as they run (`workflow.yml`, `eval_dataset.json`,
   `optimizer_config.yml`, `optimizer_results/`, `eval_baseline/`, `eval_optimized/`, `memory_workflow.yml`,
   `memory_workflow_with_delete.yml`). These are scratch outputs, safe to delete between runs.
-- The toolkit's own `nat run`/`nat eval`/`nat optimize` CLI commands are invoked from inside the notebooks with
-  `!` shell cells — this is how the toolkit's own official example notebooks are structured too.
+- The notebooks use the toolkit's own runtime paths directly. Notebooks 1 and 3 invoke `nat` CLI commands with `!`
+  shell cells; notebook 2 uses the Python `EvaluationRun` / `optimize_config` APIs so its notebook-local
+  prompt-only workflow registration is visible to the evaluator and optimizer.
 - `requirements.txt` pins `nvidia-nat==1.8.0`; adjust the version if you want a newer release.
 - The upstream docs describe the toolkit's `main` branch and can drift from whatever version you have pinned —
   this bit us twice while building notebook 2 (the `ragas` evaluator and `optimized_config.yml` output don't exist

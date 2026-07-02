@@ -1,0 +1,6 @@
+eval_*
+optimizer*
+*.yml
+
+.env
+.claude/

@@ -1,11 +1,12 @@
 # NVIDIA NeMo Agent Toolkit (package name is "nvidia-nat"; the project was
 # previously called "AIQToolkit"). The "langchain" extra pulls in the
-# react_agent/tool_calling_agent implementations used by all three notebooks.
+# react_agent/tool_calling_agent implementations used by the examples.
 # "eval" pulls in the `nat eval` runtime + evaluators, "config-optimizer"
 # pulls in `nat optimize` (Optuna + genetic-algorithm prompt optimizer, used
 # in notebook 2), and "redis" pulls in the Redis-backed long-term memory
 # client (used in notebook 3 — requires a local Redis Stack server; see
-# 03_memory.ipynb for details).
+# 03_memory.ipynb for details). The file tracing exporter used in notebook 4
+# is built into the core package.
 nvidia-nat[langchain,eval,config-optimizer,redis]==1.8.0
 
 # Notebook runtime

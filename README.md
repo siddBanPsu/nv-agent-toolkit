@@ -1,6 +1,6 @@
 # NeMo Agent Toolkit — Example Notebooks
 
-Three self-contained Jupyter notebooks demonstrating [NVIDIA NeMo Agent Toolkit](https://docs.nvidia.com/nemo/agent-toolkit/latest/index.html)
+Four self-contained Jupyter notebooks demonstrating [NVIDIA NeMo Agent Toolkit](https://docs.nvidia.com/nemo/agent-toolkit/latest/index.html)
 (package name `nvidia-nat`, previously called *AIQToolkit*).
 
 - **`01_nat_basics.ipynb`** — core concepts: installing the toolkit, writing a workflow config
@@ -13,9 +13,13 @@ Three self-contained Jupyter notebooks demonstrating [NVIDIA NeMo Agent Toolkit]
   toolkit's memory module: the `memory:` config section, the built-in `add_memory` / `get_memory` / `delete_memory`
   tools, a survey of the shipped backends, and a hands-on example using a self-hosted Redis backend that persists
   a fact across two separate `nat run` invocations.
+- **`04_observability_file_tracing.ipynb`** — NAT's built-in file tracing exporter: configuring
+  `general.telemetry.tracing`, running a simple `chat_completion` workflow, and inspecting the local trace file
+  that captures workflow/LLM spans, timing, inputs, outputs, and errors.
 
-Run `01_nat_basics.ipynb` first — `02_prompt_optimization.ipynb` and `03_memory.ipynb` both build on the same
-workflow config pattern and can be done in either order after that.
+Run `01_nat_basics.ipynb` first — `02_prompt_optimization.ipynb`, `03_memory.ipynb`, and
+`04_observability_file_tracing.ipynb` all build on the same workflow config pattern and can be done in any order
+after that.
 
 ## Setup
 
@@ -29,7 +33,7 @@ uv pip install -r requirements.txt
 
 ### API key
 
-All three notebooks call NVIDIA-hosted NIM microservices, which require an `NVIDIA_API_KEY`:
+All four notebooks call NVIDIA-hosted NIM microservices, which require an `NVIDIA_API_KEY`:
 
 1. Sign in at [build.nvidia.com](https://build.nvidia.com/).
 2. Open any model and generate a personal API key.
@@ -52,7 +56,7 @@ etc. — set the `NVIDIA_BASE_URL` environment variable (e.g. in a local, gitign
 `03_memory.ipynb` uses a self-hosted Redis Stack container (RediSearch + RedisJSON) as the long-term memory
 backend — it's the only one of the toolkit's four memory backends that doesn't require a third-party cloud
 account. You'll need Docker (or Podman) installed, or a Redis Stack server of your own reachable at
-`localhost:6379`. Notebooks 1 and 2 don't need this.
+`localhost:6379`. Notebooks 1, 2, and 4 don't need this.
 
 ## Launch
 
@@ -64,9 +68,10 @@ or open the `notebooks/` folder in VS Code / JupyterLab and run the notebooks wi
 
 ## Notes
 
-- All three notebooks write small files into the working directory as they run (`workflow.yml`, `eval_dataset.json`,
+- All four notebooks write small files into the working directory as they run (`workflow.yml`, `eval_dataset.json`,
   `optimizer_config.yml`, `optimizer_results/`, `eval_baseline/`, `eval_optimized/`, `memory_workflow.yml`,
-  `memory_workflow_with_delete.yml`). These are scratch outputs, safe to delete between runs.
+  `memory_workflow_with_delete.yml`, `observability_config.yml`, `traces/`). These are scratch outputs, safe to
+  delete between runs.
 - The notebooks use the toolkit's own runtime paths directly. Notebooks 1 and 3 invoke `nat` CLI commands with `!`
   shell cells; notebook 2 uses the Python `EvaluationRun` / `optimize_config` APIs so its notebook-local
   prompt-only workflow registration is visible to the evaluator and optimizer.
